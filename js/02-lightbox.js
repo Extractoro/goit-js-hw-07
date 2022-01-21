@@ -11,4 +11,25 @@ import { galleryItems } from './gallery-items.js';
 Посмотри в документации секцию «Options» и добавь отображение подписей к изображениям из атрибута alt.
 Пусть подпись будет снизу и появляется через 250 миллисекунд после открытия изображения. */
 
-console.log(galleryItems);
+const galleryContainer = document.querySelector('.gallery')
+const imageRef = document.querySelectorAll('.gallery__image')
+const imageLink = document.querySelectorAll('.gallery__link')
+const galleryMarkup = createGalleryMarkup(galleryItems)
+galleryContainer.insertAdjacentHTML('beforeend', galleryMarkup)
+
+function createGalleryMarkup(galleryItems) {
+    return galleryItems.map(({ preview, original, description }) => {
+        return `
+        <a class="gallery__item" href="${original}">
+  <img class="gallery__image" src="${preview}" alt="${description}" />
+</a>
+        `;
+    }).join('')
+}
+
+const lightbox = new SimpleLightbox(".gallery a", {
+    captionsData: 'alt',
+    captionDelay: 250,
+})
+
+console.log(lightbox)
